@@ -41,15 +41,13 @@ double atof(char s[]) {
         for (eval = 0.0; isdigit(s[i]); i++) {
             eval = 10.0 * eval + (s[i] - '0');
         }
-        printf("eval: %f", pow(eval, 2.0));
+        return base * pow(10, esign * eval);
     }
-    printf("s: %c\n", s[i]);
 
     return base;
 }
 
 int main() {
-    char s[] = "56.1412e-6";
+    char s[] = "6.1412e20";
     printf("atof(%s): %f\n", s, atof(s));
-    printf("* 2 =: %f\n", atof(s) * 2);
 }
