@@ -1,9 +1,10 @@
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 
 double atof(char s[]) {
-    double val, power;
-    int i, sign;
+    double val, eval, power, base;
+    int i, sign, esign;
 
     for (i = 0; isspace(s[i]); i++)
         ;
@@ -25,11 +26,30 @@ double atof(char s[]) {
         power *= 10.0;
     }
 
-    return sign * val / power;
+    base = sign * val / power;
+
+    // Check for e notation
+    if (s[i] == 'e' || s[i] == 'E') {
+        i++;
+
+        esign = (s[i] == '-') ? -1 : 1;
+
+        if (s[i] == '+' || s[i] == '-') {
+            i++;
+        }
+
+        for (eval = 0.0; isdigit(s[i]); i++) {
+            eval = 10.0 * eval + (s[i] - '0');
+        }
+        printf("eval: %f", pow(eval, 2.0));
+    }
+    printf("s: %c\n", s[i]);
+
+    return base;
 }
 
 int main() {
-    char s[] = "56.1412";
+    char s[] = "56.1412e-6";
     printf("atof(%s): %f\n", s, atof(s));
     printf("* 2 =: %f\n", atof(s) * 2);
 }
