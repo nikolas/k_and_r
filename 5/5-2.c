@@ -17,10 +17,11 @@ void ungetch(int c) {
         buf[bufp++] = c;
 }
 
-int getint(int *pn) {
+int getfloat(float *pn) {
     int c;
     int d;
     int sign;
+    int below_one = 0;
 
     while (isspace(c = getch()))
         ;
@@ -42,8 +43,17 @@ int getint(int *pn) {
         }
     }
 
-    for (*pn = 0; isdigit(c); c = getch())
-        *pn = 10 * *pn + (c - '0');
+    float place = 0.1;
+    for (*pn = 0; isdigit(c) || c == '.'; c = getch()) {
+        if (isdigit(c) && !below_one) {
+            *pn = 10 * *pn + (c - '0');
+        } else if (isdigit(c) && below_one) {
+            *pn = *pn + (place * (c - '0'));
+            place /= 10;
+        } else if (c == '.' && !below_one) {
+            below_one = 1;
+        }
+    }
 
     *pn *= sign;
 
@@ -54,8 +64,8 @@ int getint(int *pn) {
 }
 
 int main() {
-    int i = 26;
-    int z = getint(&i);
-    printf("getint(&i): %c\n", z);
-    printf("i: %d\n", i);
+    float f = 26.0;
+    int z = getfloat(&f);
+    printf("getfloat(&f): %c\n", z);
+    printf("f: %f\n", f);
 }
