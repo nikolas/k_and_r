@@ -23,24 +23,23 @@ void mystrncat(char *s, char *t, int n) {
     }
 }
 
-void mystrncmp(char *s, char *t, int n) {
-    int i, j, x;
+int mystrncmp(char *s1, char *s2, int n) {
+    int i;
 
-    i = j = 0;
-    while (*(s + i) != '\0') {
-        i++;
+    for (i = 0; i < (n - 1); i++) {
+        if (*(s1 + i) > *(s2 + i)) {
+            return 1;
+        } else if (*(s1 + i) < *(s2 + i)) {
+            return -1;
+        }
     }
 
-    x = 1;
-    while ((*(s + i++) = *(t + j++)) != '\0' && x < n) {
-        x++;
-    }
+    return 0;
 }
 
 int main() {
-    char a[100] = "abc";
-    char b[100] = "defghijklmnop";
+    char a[100] = "abcz abc";
+    char b[100] = "abc abc";
 
-    mystrncpy(a, b, 50);
-    printf("strncpy: %s, %s\n", a, b);
+    printf("strncmp: %d\n", mystrncmp(a, b, 3));
 }
