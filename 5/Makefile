@@ -1,6 +1,6 @@
 CC=gcc
 
-all: 5-1.exe 5-2.exe 5-3.exe
+all: 5-1.exe 5-2.exe 5-3.exe 5-4.exe
 
 5-1.exe: 5-1.o
 	$(CC) 5-1.c -o $@
@@ -10,6 +10,9 @@ all: 5-1.exe 5-2.exe 5-3.exe
 
 5-3.exe: 5-3.o
 	$(CC) 5-3.c -o $@
+
+5-4.exe: 5-4.o
+	$(CC) 5-4.c -o $@
 
 .PHONY: clean all
 clean:
